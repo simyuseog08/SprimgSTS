@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+[
+{
+	"NO":1,
+	"TITLE":"유석이짱이야~~~",
+	"WRITER":"심유석",
+	"IMG":"0.jpg",
+	"HIT":25
+},
+{
+	"NO":2,
+	"TITLE":"오야봉짱이야",
+	"WRITER":"오야봉",
+	"IMG":"1.jpg",
+	"HIT":25
+}
+,
+{
+	"NO":3,
+	"TITLE":"오야지짱이야~~~",
+	"WRITER":"오야지",
+	"IMG":"2.jpg",
+	"HIT":25
+}
+,
+{
+	"NO":4,
+	"TITLE":"그냥짱이야~~~",
+	"WRITER":"그냥",
+	"IMG":"3.jpg",
+	"HIT":25
+}
+]

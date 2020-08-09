@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boards>
+	<board>
+		<no>1</no>
+		<title>ㅎㅎ</title>
+		<contents>하하</contents>
+		<hit>50</hit>		
+	</board>
+	
+	
+	<board>
+		<no>2</no>
+		<title>HH</title>
+		<contents>호호</contents>
+		<hit></hit>		
+	</board>
+	
+	
+	
+	<board>
+		<no>3</no>
+		<title>ㅋㅋ</title>
+		<contents>호로록</contents>
+		<hit>10000</hit>		
+	</board>
+
+
+</boards>

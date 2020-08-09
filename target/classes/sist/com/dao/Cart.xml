@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sist.com.bean.ProductBean">
+
+	<select id="loginCheck" parameterType="String" resultType="String">
+		SELECT PASSWORD FROM MEMBER WHERE ID = #{VALUE}
+	
+	</select>
+	
+	<insert id="insertProduct" parameterType="cart">
+	 INSERT INTO PRODUCT(NO ,PRODUCTNAME,PRODUCTORIGIN,PRODUCTPRICE,PRODUCTCATEGORY,FILENAME,REGDATE,ID) 
+	 VALUES(PR_SEQ.NEXTVAL,#{productName},#{productOrigin},#{productPrice},#{productCategory},#{fileName},SYSDATE,#{id})
+	</insert>
+	
+	<select id="selectProduct" parameterType="java.util.HashMap" resultType="cart">
+		SELECT NO,PRODUCTNAME,PRODUCTORIGIN,PRODUCTPRICE,PRODUCTCATEGORY,FILENAME,REGDATE,ID,SELLER 
+		FROM PRODUCT
+		<if test="query!=null">
+		WHERE ${query} LIKE '%'||#{data}||'%'
+		</if>
+		
+	</select>	
+	
+	<delete id="deleteProduct" parameterType="int">
+		DELETE FROM PRODUCT WHERE NO = #{VALUE}
+	</delete>
+	
+	<select id="selectInfoProduct" parameterType="int" resultType="cart">
+		SELECT NO,PRODUCTNAME,PRODUCTORIGIN,PRODUCTPRICE,PRODUCTCATEGORY,FILENAME,REGDATE,ID,SELLER 
+		FROM PRODUCT
+		WHERE NO = #{VALUE}
+	</select>
+	
+	<update id="updateProduct" parameterType="cart">
+		UPDATE PRODUCT SET PRODUCTNAME = #{productName},PRODUCTORIGIN = #{productOrigin},PRODUCTPRICE = #{productPrice},
+		PRODUCTCATEGORY = #{productCategory} 		
+		WHERE NO = #{no}
+	
+	</update>
+	
+	<select id="selectChart" resultType="cart" parameterType="HashMap">
+	 SELECT NO, PRODUCTNAME, PRODUCTORIGIN, PRODUCTPRICE, PRODUCTCATEGORY, FILENAME, REGDATE, NAME SELLER, P.ID
+ 	 FROM PRODUCT P , ADMINMEMBER A
+ 	 WHERE P.ID=A.ID
+ 	 <if test="query!=null">
+ 	 	AND ${query} LIKE '%'||#{data}||'%'
+ 	 
+ 	 </if>
+	
+	</select>
+	
+	<select id="selectReview" parameterType="int" resultType="sist.com.bean.ReviewBean">
+		SELECT RNO,ID,FILENAME,CONTENTS,REGDATE,PKNO,REF,PNUM FROM REVIEW
+		WHERE PKNO = #{VALUE}
+	
+	</select>
+	
+	<insert id="insertReview" parameterType="sist.com.bean.ReviewBean">
+		INSERT INTO REVIEW(RNO,ID,FILENAME,CONTENTS,REGDATE,PKNO,REF,PNUM) VALUES(REVIEW_SEQ.NEXTVAL,#{id},#{fileName},#{contents},SYSDATE,#{pkno},#{ref},#{pnum})
+	
+	</insert>
+	
+	<select id="getSequence" resultType="int">
+		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

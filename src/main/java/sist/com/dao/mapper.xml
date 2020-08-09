@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sist.bean.BoardBean">
+
+	<select id="loginCrudCheck" parameterType="String" resultType="String">
+		SELECT PASSWORD FROM ADMINMEMBER WHERE ID = #{VALUE}
+	
+	</select>
+	
+	<insert id="insertWriter" parameterType="board">
+	
+		INSERT INTO BBOARD(NO, NAME, PW, SUBJECT, TEXTAREA, FILENAME, HIT, REGDATE) 
+		VALUES(BB_SEQ.NEXTVAL,#{name},#{pw},#{subject},#{textarea},#{filename},0,SYSDATE)
+	
+	</insert>
+	
+	<select id="selectBoard" parameterType="HashMap" resultType="board">
+		SELECT NO, NAME, PW, SUBJECT, TEXTAREA, FILENAME, HIT, REGDATE FROM BBOARD
+		<if test="query!=null">
+			WHERE ${query} LIKE '%'||#{data}||'%'
+		
+		</if>
+	</select>
+	
+	<sql id="ssi">
+		SELECT NO, NAME, PW, SUBJECT, TEXTAREA, FILENAME, HIT, REGDATE FROM BBOARD
+	</sql>
+	
+	<select id="selectInfoBoard" parameterType="int" resultType="board">
+		<include refid="ssi"></include>
+		WHERE NO = #{VALUE}
+		
+	</select>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BBOARD WHERE NO = #{VALUE}
+	
+	</delete>
+	
+	<select id="passWordCheck" parameterType="int" resultType="String">
+		SELECT PW FROM BBOARD
+		WHERE NO = #{VALUE}
+	
+	</select>
+	
+	<update id="updateModify" parameterType="board">
+		UPDATE BBOARD SET NAME = #{name}, PW = #{pw}, SUBJECT = #{subject}, TEXTAREA = #{textarea}
+		<if test="filename!=null">
+		,
+		FILENAME = #{filename}
+		</if>
+		WHERE NO = #{no}
+	
+	</update>
+	
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

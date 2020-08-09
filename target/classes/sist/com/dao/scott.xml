@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sist.com.bean.EmpBean">
+		<sql id="sel">
+			 SELECT EMPNO,ENAME,JOB,SAL,NVL(COMM,0) COMM , NVL(MGR,0) MGR, TO_CHAR(HIREDATE,'YYYY/MM/DD') HIREDATE,DEPTNO	      
+		     FROM EP
+		     WHERE SAL <![CDATA[< 5000]]> 
+		</sql>
+		
+		<select id="selectProcess" resultType="emp" parameterType="emp">
+			 <include refid="sel"></include>	   
+		     <trim prefix="where" prefixOverrides="OR|AND" suffixOverrides="AND|OR"> 
+		     <!-- trim 사용시 prefix = WHERE 지정 해주고 OR|AND가 없는곳은 공백제거 해줌. 
+		     <WHERE></WHERE>써주면 지나쳐서 실행  WHERE 실행시 공백도 문자이기 때문에 참고해서 실행함 에러 발생.
+		     prefixOverrides where 실행 중 공백 제거,suffixOverrides where 실행후에 공백제거 -->
+		     <if test="ename!=null">
+		     	 ENAME = #{ename}
+		     </if>
+		     
+		     <if test="job!=null">
+		     	OR JOB = #{job}
+		     </if>
+		     </trim>
+		    
+		     
+		     
+		</select>
+		
+		
+		<select id="EmpselectIN" parameterType="java.util.HashMap" resultType="emp">
+			 <include refid="sel"></include>    
+
+				<trim prefix="WHERE" prefixOverrides="AND|OR">
+					<if test="empnos!=null">
+						 EMPNO IN
+						<foreach collection="empnos" index="index" item="i" open="(" close=")" separator=",">	
+						<!-- map key값을 empnos설정함. 구분자는 , for문이 실행하면 ( 하고 끝나면 ) 함  item 명은 아무거나 해도됨.-->
+							
+							#{i}
+						
+						</foreach>
+					
+					</if>
+				
+				</trim>
+			
+			
+		</select>
+		
+		<update id="empUpdate" parameterType="emp">
+			UPDATE EP
+			<trim prefix="SET" prefixOverrides=",">
+			<if test="ename!=null">
+			ENAME = #{ename},
+			</if>
+			
+			<if test="job!=null">
+			JOB = #{job} 
+			</if>
+			</trim>
+			WHERE EMPNO = #{empno}
+		
+		</update>
+	
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

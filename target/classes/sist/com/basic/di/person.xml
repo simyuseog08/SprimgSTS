@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<bean id="person1" class="sist.com.basic.di.Person" scope="singleton"> <!--new person 과 동일 동기화 되어잇음  -->
+		<property name="name" value="심유석"></property><!--person class에 있는 set을 지우면 name에 표시되지 않음  -->
+		<property name="age" value="25"></property>
+		<property name="height" value="195"></property>
+	</bean>
+	
+	<bean id="person2" class="sist.com.basic.di.Person" p:age="25" p:name="심유석" p:height="195"></bean> <!--인젝션을 받는 또다른 방법  -->
+	
+	<bean id="person3" class="sist.com.basic.di.Person">
+		<constructor-arg name="name" value="심유석"></constructor-arg> <!-- 생성자 사용법 -->
+		<constructor-arg name="age" value="25"></constructor-arg>
+		<constructor-arg name="height" value="195"></constructor-arg>
+		 
+	</bean>
+
+</beans>
+
+<!-- 확장자 필요시 namespaces 사용  -->
